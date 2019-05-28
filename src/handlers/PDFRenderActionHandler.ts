@@ -15,32 +15,38 @@ export class PDFRenderActionProcessor extends ActionProcessor {
     private static schema = Joi.object()
         .keys({
             from: Joi.object({
-                folder: Joi.string().required(),
-                relativePath: Joi.string().required(),
+                folder: Joi.string()
+                    .required()
+                    .min(1),
+                relativePath: Joi.string()
+                    .required()
+                    .min(1),
             }).required(),
-            
+
             pdf: Joi.object({
-                path: Joi.string().required(),
-                format: Joi.string().default('A4').required(),
-                
-                displayHeaderFooter: Joi.boolean(),    
+                path: Joi.string()
+                    .required()
+                    .min(1),
+                format: Joi.string().default('A4'),
+
+                displayHeaderFooter: Joi.boolean(),
                 headerTemplate: Joi.string(),
                 footerTemplate: Joi.string(),
                 printBackground: Joi.boolean(),
                 landscape: Joi.boolean(),
                 pageRanges: Joi.string().regex(/[0-9]+-[0-9]+/),
-    
+
                 width: Joi.alternatives(Joi.string(), Joi.number()),
                 height: Joi.alternatives(Joi.string(), Joi.number()),
-    
+
                 margin: Joi.object({
                     top: Joi.alternatives(Joi.string(), Joi.number()),
                     right: Joi.alternatives(Joi.string(), Joi.number()),
                     bottom: Joi.alternatives(Joi.string(), Joi.number()),
                     left: Joi.alternatives(Joi.string(), Joi.number()),
-                }),    
-                preferCSSPageSize: Joi.boolean()
-            })
+                }),
+                preferCSSPageSize: Joi.boolean(),
+            }),
         })
         .required()
         .options({
@@ -59,14 +65,14 @@ export class PDFRenderActionProcessor extends ActionProcessor {
      * @inheritdoc
      */
     async execute(): Promise<void> {
-        let to = JSON.parse(JSON.stringify(this.options.pdf));
+        const to = JSON.parse(JSON.stringify(this.options.pdf));
         to.path = FSUtil.getAbsolutePath(to.path, this.snapshot.wd);
 
         const processor = new PDFRenderProcessor(
             FSUtil.getAbsolutePath(this.options.from.folder, this.snapshot.wd),
             this.options.from.relativePath,
             to,
-            this.snapshot
+            this.snapshot,
         );
 
         await processor.run();

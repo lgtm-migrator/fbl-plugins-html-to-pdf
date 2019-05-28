@@ -23,10 +23,65 @@ class PDFRenderActionHandlerTestSuite {
     }
 
     @test()
-    async failValidation() {}
+    async failValidation() {
+        const actionHandler = new PDFRenderActionHandler();
+        const context = ContextUtil.generateEmptyContext();
+        const snapshot = new ActionSnapshot('.', {}, '', 0, {});
+
+        await chai.expect(actionHandler.getProcessor([], context, snapshot, {}).validate()).to.be.rejected;
+        await chai.expect(actionHandler.getProcessor({}, context, snapshot, {}).validate()).to.be.rejected;
+        await chai.expect(actionHandler.getProcessor('yes', context, snapshot, {}).validate()).to.be.rejected;
+        
+        await chai.expect(actionHandler.getProcessor({
+            from: {},
+            pdf: {}
+        }, context, snapshot, {}).validate()).to.be.rejected;
+
+        await chai.expect(actionHandler.getProcessor({
+            from: {},
+            pdf: {}
+        }, context, snapshot, {}).validate()).to.be.rejected;
+
+        await chai.expect(actionHandler.getProcessor({
+            from: {
+                folder: ''
+            },
+            pdf: {}
+        }, context, snapshot, {}).validate()).to.be.rejected;
+
+        await chai.expect(actionHandler.getProcessor({
+            from: {
+                folder: '',
+                relativePath: 'index.html'
+            },
+            pdf: {}
+        }, context, snapshot, {}).validate()).to.be.rejected;
+
+        await chai.expect(actionHandler.getProcessor({
+            from: {
+                folder: '',
+                relativePath: 'index.html'
+            },
+            pdf: {}
+        }, context, snapshot, {}).validate()).to.be.rejected;
+    }
 
     @test()
-    async passValidation() {}
+    async passValidation() {
+        const actionHandler = new PDFRenderActionHandler();
+        const context = ContextUtil.generateEmptyContext();
+        const snapshot = new ActionSnapshot('.', {}, '', 0, {});
+
+        await actionHandler.getProcessor({
+            from: {
+                folder: 'test',
+                relativePath: 'index.html'
+            },
+            pdf: {
+                path: 'test.pdf'
+            }
+        }, context, snapshot, {}).validate();
+    }
 
     @test()
     async generatePdfFile() {
