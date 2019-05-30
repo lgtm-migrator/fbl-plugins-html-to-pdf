@@ -3,27 +3,30 @@
 Allows to render locally stored HTML document into PDF file
 
 ##ID:## `com.fireblink.fbl.plugins.html.to.pdf`
-        
-##Aliases:## 
+  
+##Aliases:##
+
 # `fbl.plugins.html.to.pdf`
+
 # `html.to.pdf`
-# `html->pdf`        
+
+# `html->pdf`
 
 ```yaml
-html->pdf:    
+html->pdf:
   # [required] information on where to find the PDF file and related assets
-  from: 
+  from:
     # [required] folder that contains html file and all assets (images, fonts, etc)
     folder: /some/folder
-    
+
     # [required] relative path to the pdf file inside the folder
     relativePath: Joi.string().required(),
-  
+
   # [required] PDF generation information
   pdf:
     # [required] path to where store the PDF file (should also iclude the name of the file and extension)
     path:
-    
+
     # [optional] page format to render
     # Default value: A4
     # Possible values:
@@ -46,8 +49,8 @@ html->pdf:
     # [optional] Display header and footer.
     # Default value: false
     displayHeaderFooter: true
-  
-    # [optional] HTML template for the print header. 
+
+    # [optional] HTML template for the print header.
     # Should be valid HTML markup with following classes used to inject printing values into them:
     # - `date` formatted print date
     # - `title` document title
@@ -61,13 +64,13 @@ html->pdf:
       <div><span class="pageNumber"></span> of <span class="totalPages"></span></div>
     `
 
-    # [optional] HTML template for the print footer. 
+    # [optional] HTML template for the print footer.
     # Should be valid HTML markup with following classes used to inject printing values into them:
     # - `date` formatted print date
     # - `title` document title
     # - `url` document location
     # - `pageNumber` current page number
-    # - `totalPages` total pages in the document    
+    # - `totalPages` total pages in the document
     footerTemplate: `
       <div class="date"></div>
       <div class="title"></div>
@@ -78,36 +81,38 @@ html->pdf:
     # [optional] Print background graphics.
     # Default value: false
     printBackground: true
-    
+
     # [optional] Paper ranges to print, e.g., '1-5, 8, 11-13'.
-    # Default value: '' which means print all pages.   
+    # Default value: '' which means print all pages.
     pageRanges: '1-5'
-    
+
     # [optional] Paper width (string or number).
     width: 640
     # [optional] Paper height (string or number)
     height: 960
-   
-    # [optional] Paper margins, defaults to none. 
+
+    # [optional] Paper margins, defaults to none.
     margin:
       # [optional] Top margin (string or number).
       # Default value: 0
       top: 10
-      
+
       # [optional] Right margin (string or number).
       # Default value: 0
       right: 10
-     
+
       # [optional] Bottom margin (string or number).
       # Default value: 0
       bottom: 10
-      
+
       # [optional] Left margin (string or number).
-      # Default value: 0      
+      # Default value: 0
       left: 10
-  
-    # [optional] Give any CSS @page size declared in the page priority over what is 
+
+    # [optional] Give any CSS @page size declared in the page priority over what is
     # declared in width and height or format options.
-    # Default value: false which will scale the content to fit the paper size.   
+    # Default value: false which will scale the content to fit the paper size.
     preferCSSPageSize: boolean;
 ```
+
+**Warning:** headless Chrome browser is started with `--no-sandbox` and `--disable-setuid-sandbox` arguments, meaning sandbox is disabled. You should only use PDF rendering with the html content you trust.

@@ -1,0 +1,11 @@
+requires:
+  plugins:
+    '@fbl-plugins/html-to-pdf': '>=0.0.1'
+
+pipeline:
+  html->pdf:
+    from: 
+      folder: .
+      relativePath: index.html
+    pdf:
+      path: /tmp/test.pdf

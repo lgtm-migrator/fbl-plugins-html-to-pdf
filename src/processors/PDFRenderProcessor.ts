@@ -23,7 +23,7 @@ export class PDFRenderProcessor {
 
     private async render(): Promise<void> {
         this.snapshot.log('-> launching browser');
-        const browser = await launch();
+        const browser = await launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
         this.snapshot.log('-> openning new page');
         const page = await browser.newPage();
         this.snapshot.log(`-> navigating to: http://localhost:${this.port}/${this.relativePath}`);
