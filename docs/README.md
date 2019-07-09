@@ -2,30 +2,28 @@
 
 Allows to render locally stored HTML document into PDF file
 
-##ID:## `com.fireblink.fbl.plugins.html.to.pdf`
-  
-##Aliases:##
+**ID:** `com.fireblink.fbl.plugins.html.to.pdf`
 
-# `fbl.plugins.html.to.pdf`
+**Aliases:**
 
-# `html.to.pdf`
-
-# `html->pdf`
+- `fbl.plugins.html.to.pdf`
+- `html.to.pdf`
+- `html->pdf`
 
 ```yaml
 html->pdf:
-  # [required] information on where to find the PDF file and related assets
+  # [required] information on where to find the HTML file and related assets
   from:
     # [required] folder that contains html file and all assets (images, fonts, etc)
     folder: /some/folder
 
-    # [required] relative path to the pdf file inside the folder
-    relativePath: Joi.string().required(),
+    # [required] relative path to the HTML file inside the folder
+    relativePath: index.html
 
   # [required] PDF generation information
   pdf:
     # [required] path to where store the PDF file (should also iclude the name of the file and extension)
-    path:
+    path: result.pdf
 
     # [optional] page format to render
     # Default value: A4
