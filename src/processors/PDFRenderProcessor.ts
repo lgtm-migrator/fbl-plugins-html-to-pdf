@@ -42,7 +42,7 @@ export class PDFRenderProcessor {
             root: this.targetFolder,
         }));
 
-        this.snapshot.log('-> starting server on port:', port);
+        this.snapshot.log(`-> starting server on port: ${port}`);
         await new Promise<void>((res, rej) => {
             server.listen(port, res);
         });
