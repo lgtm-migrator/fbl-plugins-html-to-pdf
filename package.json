@@ -33,7 +33,7 @@
     "@commitlint/cli": "8.0.0",
     "@commitlint/config-conventional": "8.0.0",
     "@types/body-parser": "1.17.0",
-    "@types/chai": "4.1.7",
+    "@types/chai": "4.2.0",
     "@types/http-server": "0.10.0",
     "@types/joi": "14.3.3",
     "@types/node": "12.7.1",
