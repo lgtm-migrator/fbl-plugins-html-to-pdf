@@ -12,6 +12,12 @@ Allows to render locally stored HTML document into PDF file
 
 ```yaml
 html->pdf:
+  # [optional] maximum time to wait for page to load in seconds
+  # Default value: 30 (30 seconds)
+  # Min value: 1 second
+  # Max value: 3600 seconds (1 hour)
+  timeout: 45
+
   # [required] information on where to find the HTML file and related assets
   from:
     # [required] folder that contains html file and all assets (images, fonts, etc)

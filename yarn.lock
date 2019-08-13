@@ -335,10 +335,10 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
-"@types/puppeteer@1.19.0":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.19.0.tgz#59f0050bae019cee7c3af2bb840a25892a3078b6"
-  integrity sha512-Db9LWOuTm2bR/qgPE7PQCmnsCQ6flHdULuIDWTks8YdQ/SGHKg5WGWG54gl0734NDKCTF5MbqAp2qWuvBiyQ3Q==
+"@types/puppeteer@1.19.1":
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.19.1.tgz#942ca62288953a0f5fbbc25c103b5f2ba28b60ab"
+  integrity sha512-ReWZvoEfMiJIA3AG+eM+nCx5GKrU2ANVYY5TC0nbpeiTCtnJbcqnmBbR8TkXMBTvLBYcuTOAELbTcuX73siDNQ==
   dependencies:
     "@types/node" "*"
 
@@ -1751,10 +1751,10 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.0"
 
-fbl@1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/fbl/-/fbl-1.9.0.tgz#3f35eebea384530b7fd234d59464ccd1f59d8eb0"
-  integrity sha512-We71hobRineQvmxAGSrvSrxhCIldDCOpP6WPlPKaJxX3kyGicLcE9Tyq1qYbX6P/lW2q3rCjdNwv0ENEG1W5vg==
+fbl@1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/fbl/-/fbl-1.9.2.tgz#a7528f2d6252aec401fd307f07fa0bb5494767e7"
+  integrity sha512-9+VRoAbjEHRz27nqMzwPsRuA8xxoBSH0XksWSgg/T35BPvnEOTyfYcifJQSnnydMQfMuv/teW4tkF0tTM5I6lA==
   dependencies:
     cliui "5.0.0"
     colors "1.3.3"

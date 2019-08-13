@@ -13,6 +13,7 @@ export class PDFRenderProcessor {
         private relativePath: string,
         private pdfOptions: PDFOptions,
         private snapshot: ActionSnapshot,
+        private timeout?: number,
     ) {}
 
     public async run(): Promise<void> {
@@ -27,7 +28,10 @@ export class PDFRenderProcessor {
         this.snapshot.log('-> openning new page');
         const page = await browser.newPage();
         this.snapshot.log(`-> navigating to: http://localhost:${this.port}/${this.relativePath}`);
-        await page.goto(`http://localhost:${this.port}/${this.relativePath}`, { waitUntil: 'networkidle2' });
+        await page.goto(`http://localhost:${this.port}/${this.relativePath}`, {
+            waitUntil: 'networkidle2',
+            timeout: this.timeout !== undefined && this.timeout * 1000,
+        });
         this.snapshot.log('-> rendering pdf');
         await page.pdf(this.pdfOptions);
         this.snapshot.log('-> closing browser');

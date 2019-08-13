@@ -14,6 +14,10 @@ import { PDFRenderProcessor } from '../processors';
 export class PDFRenderActionProcessor extends ActionProcessor {
     private static schema = Joi.object()
         .keys({
+            timeout: Joi.number()
+                .min(1)
+                .max(3600),
+
             from: Joi.object({
                 folder: Joi.string()
                     .required()
@@ -73,6 +77,7 @@ export class PDFRenderActionProcessor extends ActionProcessor {
             this.options.from.relativePath,
             to,
             this.snapshot,
+            this.options.timeout,
         );
 
         await processor.run();
