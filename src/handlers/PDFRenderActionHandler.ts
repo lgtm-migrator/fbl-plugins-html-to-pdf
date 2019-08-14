@@ -18,6 +18,8 @@ export class PDFRenderActionProcessor extends ActionProcessor {
                 .min(1)
                 .max(3600),
 
+            readyFunction: Joi.string().min(1),
+
             from: Joi.object({
                 folder: Joi.string()
                     .required()
@@ -77,7 +79,10 @@ export class PDFRenderActionProcessor extends ActionProcessor {
             this.options.from.relativePath,
             to,
             this.snapshot,
-            this.options.timeout,
+            {
+                timeout: this.options.timeout,
+                readyFunction: this.options.readyFunction,
+            },
         );
 
         await processor.run();

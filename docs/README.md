@@ -18,6 +18,16 @@ html->pdf:
   # Max value: 3600 seconds (1 hour)
   timeout: 45
 
+  # [optional] function name on `window` object that page should call to start rendering,
+  # e.g. window.iAmReady();
+  # Note: function is added after page stops loading, so make sure to not call it right away.
+  # E.g. `setTimeout(window.iAmReady, 1000);` will not work, while
+  # setTimeout(() => {
+  #   window.iAmReady();
+  # }, 1000);
+  # will probably work.
+  readyFunction: iAmReady
+
   # [required] information on where to find the HTML file and related assets
   from:
     # [required] folder that contains html file and all assets (images, fonts, etc)

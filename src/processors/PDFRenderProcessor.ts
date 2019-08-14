@@ -2,7 +2,7 @@ const portfinder = require('portfinder');
 import * as httpServer from 'http-server';
 import { Server } from 'http';
 import { launch, PDFOptions } from 'puppeteer';
-import { ActionSnapshot } from 'fbl';
+import { ActionSnapshot, ActionError } from 'fbl';
 
 export class PDFRenderProcessor {
     private server: Server;
@@ -13,7 +13,10 @@ export class PDFRenderProcessor {
         private relativePath: string,
         private pdfOptions: PDFOptions,
         private snapshot: ActionSnapshot,
-        private timeout?: number,
+        private options: {
+            timeout?: number;
+            readyFunction?: string;
+        },
     ) {}
 
     public async run(): Promise<void> {
@@ -28,15 +31,50 @@ export class PDFRenderProcessor {
         this.snapshot.log('-> openning new page');
         const page = await browser.newPage();
         this.snapshot.log(`-> navigating to: http://localhost:${this.port}/${this.relativePath}`);
+
+        let timeout = ((this.options.hasOwnProperty('timeout') && this.options.timeout) || 30) * 1000;
+        const start = Date.now();
         await page.goto(`http://localhost:${this.port}/${this.relativePath}`, {
             waitUntil: 'networkidle2',
-            timeout: this.timeout !== undefined && this.timeout * 1000,
+            timeout,
         });
-        this.snapshot.log('-> rendering pdf');
-        await page.pdf(this.pdfOptions);
-        this.snapshot.log('-> closing browser');
-        await browser.close();
-        this.snapshot.log('<- browser closed');
+
+        // calculate remaining timeout
+        timeout = timeout - (Date.now() - start);
+
+        const onReady = async () => {
+            this.snapshot.log('-> rendering pdf');
+            await page.pdf(this.pdfOptions);
+            this.snapshot.log('-> closing browser');
+            await browser.close();
+            this.snapshot.log('<- browser closed');
+        };
+
+        if (this.options.readyFunction) {
+            let resolve: Function;
+            let timer: NodeJS.Timeout;
+
+            const blockPromise = new Promise((res, rej) => {
+                timer = setTimeout(() => {
+                    rej(new ActionError('Timeout waiting for ready function call', 'TIMEOUT'));
+                }, timeout);
+
+                resolve = () => {
+                    clearTimeout(timer);
+                    res();
+                };
+            });
+
+            await page.exposeFunction(this.options.readyFunction, () => {
+                this.snapshot.log('-> ready function called');
+                console.log('READY');
+                resolve();
+            });
+
+            await blockPromise;
+        }
+
+        await onReady();
     }
 
     private async startServer(): Promise<void> {

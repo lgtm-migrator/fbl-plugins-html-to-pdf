@@ -171,7 +171,7 @@ class PDFRenderActionHandlerTestSuite {
     }
 
     @test()
-    async generatePDFWithTimeoutSetting() {
+    async generatePDFWithTimeout() {
         const tempPathRegistry = Container.get(TempPathsRegistry);
         const pdfPath = await tempPathRegistry.createTempFile();
 
@@ -181,10 +181,43 @@ class PDFRenderActionHandlerTestSuite {
         const actionHandler = new PDFRenderActionHandler();
         const processor = actionHandler.getProcessor(
             {
-                timeout: 60,
+                timeout: 5,
+                readyFunction: 'readyFunction',
                 from: {
                     folder: 'test/assets',
                     relativePath: 'index.html',
+                },
+                pdf: {
+                    path: pdfPath,
+                    format: 'A4',
+                },
+            },
+            context,
+            snapshot,
+            {},
+        );
+
+        await processor.validate();
+
+        await chai.expect(processor.execute()).to.be.rejectedWith('Timeout waiting for ready function call');
+    }
+
+    @test()
+    async generatePDFWithReadyFunctionSetting() {
+        const tempPathRegistry = Container.get(TempPathsRegistry);
+        const pdfPath = await tempPathRegistry.createTempFile();
+
+        const context = ContextUtil.generateEmptyContext();
+        const snapshot = new ActionSnapshot('id', {}, process.cwd(), 0, {});
+
+        const actionHandler = new PDFRenderActionHandler();
+        const processor = actionHandler.getProcessor(
+            {
+                timeout: 5,
+                readyFunction: 'iAmReady',
+                from: {
+                    folder: 'test/assets',
+                    relativePath: 'readyFn.html',
                 },
                 pdf: {
                     path: pdfPath,

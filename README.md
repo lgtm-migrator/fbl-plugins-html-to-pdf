@@ -25,8 +25,8 @@ This is the most recommended way. Create `package.json` next to your flow file w
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@fbl-plugins/html-to-pdf": "1.0.0",
-    "fbl": "1.7.0"
+    "@fbl-plugins/html-to-pdf": "1.0.2",
+    "fbl": "1.9.2"
   }
 }
 ```
@@ -46,9 +46,9 @@ After that you can use `yarn fbl <args>` to execute your flow or even register a
 
 ```yaml
 requires:
-  fbl: '>=1.7.0'
+  fbl: '>=1.9.2'
   plugins:
-    '@fbl-plugins/html-to-pdf': '>=1.0.0'
+    '@fbl-plugins/html-to-pdf': '>=1.0.2'
 
 pipeline:
   # your flow goes here
