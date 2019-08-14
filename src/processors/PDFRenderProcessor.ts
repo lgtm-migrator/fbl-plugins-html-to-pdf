@@ -31,6 +31,10 @@ export class PDFRenderProcessor {
         this.snapshot.log('-> openning new page');
         const page = await browser.newPage();
         this.snapshot.log(`-> navigating to: http://localhost:${this.port}/${this.relativePath}`);
+        
+        page.on('pageerror', (err: Error) => {  
+            this.snapshot.log(`Page error occurred. ${err.toString()} ${err.stack}`, true);            
+        });
 
         let timeout = ((this.options.hasOwnProperty('timeout') && this.options.timeout) || 30) * 1000;
         const start = Date.now();
@@ -67,7 +71,6 @@ export class PDFRenderProcessor {
 
             await page.exposeFunction(this.options.readyFunction, () => {
                 this.snapshot.log('-> ready function called');
-                console.log('READY');
                 resolve();
             });
 

@@ -1,6 +1,10 @@
 <body style="color: red">Hello World!</body>
 <script>
     setTimeout(() => {
+        throw new Error('Test');
+    }, 500); 
+    
+    setTimeout(() => {
         window.iAmReady();
     }, 1000);    
 </script>
