@@ -26,7 +26,7 @@ class PDFRenderActionHandlerTestSuite {
     async failValidation() {
         const actionHandler = new PDFRenderActionHandler();
         const context = ContextUtil.generateEmptyContext();
-        const snapshot = new ActionSnapshot('.', {}, '', 0, {});
+        const snapshot = new ActionSnapshot('index.yml', '.', {}, '', 0, {});
 
         await chai.expect(actionHandler.getProcessor([], context, snapshot, {}).validate()).to.be.rejected;
         await chai.expect(actionHandler.getProcessor({}, context, snapshot, {}).validate()).to.be.rejected;
@@ -115,7 +115,7 @@ class PDFRenderActionHandlerTestSuite {
     async passValidation() {
         const actionHandler = new PDFRenderActionHandler();
         const context = ContextUtil.generateEmptyContext();
-        const snapshot = new ActionSnapshot('.', {}, '', 0, {});
+        const snapshot = new ActionSnapshot('index.yml', '.', {}, '', 0, {});
 
         await actionHandler
             .getProcessor(
@@ -141,7 +141,7 @@ class PDFRenderActionHandlerTestSuite {
         const pdfPath = await tempPathRegistry.createTempFile();
 
         const context = ContextUtil.generateEmptyContext();
-        const snapshot = new ActionSnapshot('id', {}, process.cwd(), 0, {});
+        const snapshot = new ActionSnapshot('index.yml', 'id', {}, process.cwd(), 0, {});
 
         const actionHandler = new PDFRenderActionHandler();
         const processor = actionHandler.getProcessor(
@@ -176,7 +176,7 @@ class PDFRenderActionHandlerTestSuite {
         const pdfPath = await tempPathRegistry.createTempFile();
 
         const context = ContextUtil.generateEmptyContext();
-        const snapshot = new ActionSnapshot('id', {}, process.cwd(), 0, {});
+        const snapshot = new ActionSnapshot('index.yml', 'id', {}, process.cwd(), 0, {});
 
         const actionHandler = new PDFRenderActionHandler();
         const processor = actionHandler.getProcessor(
@@ -208,7 +208,7 @@ class PDFRenderActionHandlerTestSuite {
         const pdfPath = await tempPathRegistry.createTempFile();
 
         const context = ContextUtil.generateEmptyContext();
-        const snapshot = new ActionSnapshot('id', {}, process.cwd(), 0, {});
+        const snapshot = new ActionSnapshot('index.yml', 'id', {}, process.cwd(), 0, {});
 
         const actionHandler = new PDFRenderActionHandler();
         const processor = actionHandler.getProcessor(
