@@ -213,7 +213,7 @@ class PDFRenderActionHandlerTestSuite {
         const actionHandler = new PDFRenderActionHandler();
         const processor = actionHandler.getProcessor(
             {
-                timeout: 5,
+                timeout: 30,
                 readyFunction: 'iAmReady',
                 from: {
                     folder: 'test/assets',
