@@ -1,5 +1,5 @@
 const portfinder = require('portfinder');
-import * as httpServer from 'http-server';
+import * as express from 'express';
 import { Server } from 'http';
 import { launch, PDFOptions } from 'puppeteer';
 import { ActionSnapshot, ActionError } from 'fbl';
@@ -83,13 +83,12 @@ export class PDFRenderProcessor {
     private async startServer(): Promise<void> {
         const port = (this.port = await portfinder.getPortPromise());
 
-        const server = (this.server = httpServer.createServer({
-            root: this.targetFolder,
-        }));
+        const app = express();
+        app.use(express.static(this.targetFolder));
 
         this.snapshot.log(`-> starting server on port: ${port}`);
-        await new Promise<void>((res, rej) => {
-            server.listen(port, res);
+        await new Promise<void>(res => {
+            this.server = app.listen(port, res);
         });
         this.snapshot.log('<- server started');
     }
