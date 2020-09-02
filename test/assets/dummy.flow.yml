@@ -1,10 +1,10 @@
 requires:
   plugins:
-    '@fbl-plugins/html-to-pdf': '>=0.0.1'
+    '@fbl-plugins/html-to-pdf': '>=1.1.0-beta.0'
 
 pipeline:
   html->pdf:
-    from: 
+    from:
       folder: .
       relativePath: index.html
     pdf:

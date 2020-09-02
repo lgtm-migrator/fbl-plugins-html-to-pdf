@@ -14,25 +14,17 @@ import { PDFRenderProcessor } from '../processors';
 export class PDFRenderActionProcessor extends ActionProcessor {
     private static schema = Joi.object()
         .keys({
-            timeout: Joi.number()
-                .min(1)
-                .max(3600),
+            timeout: Joi.number().min(1).max(3600),
 
             readyFunction: Joi.string().min(1),
 
             from: Joi.object({
-                folder: Joi.string()
-                    .required()
-                    .min(1),
-                relativePath: Joi.string()
-                    .required()
-                    .min(1),
+                folder: Joi.string().required().min(1),
+                relativePath: Joi.string().required().min(1),
             }).required(),
 
             pdf: Joi.object({
-                path: Joi.string()
-                    .required()
-                    .min(1),
+                path: Joi.string().required().min(1),
                 format: Joi.string().default('A4'),
 
                 displayHeaderFooter: Joi.boolean(),
@@ -63,7 +55,7 @@ export class PDFRenderActionProcessor extends ActionProcessor {
     /**
      * @inheritdoc
      */
-    getValidationSchema(): Joi.SchemaLike {
+    getValidationSchema(): Joi.Schema {
         return PDFRenderActionProcessor.schema;
     }
 
