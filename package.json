@@ -1,11 +1,8 @@
 {
   "name": "@fbl-plugins/html-to-pdf",
-  "version": "1.1.0-beta.0",
+  "version": "1.1.0",
   "description": "fbl plugin to generate PDF documents based on HTML files",
   "main": "dist/index.js",
-  "engines": {
-    "node": ">=8.12.0"
-  },
   "scripts": {
     "commit": "npx git-cz",
     "commit:retry": "npx git-cz --retry",
@@ -27,7 +24,7 @@
     "typedi": "0.8.0"
   },
   "peerDependencies": {
-    "fbl": ">=1.14.0-beta.3 <2.0.0"
+    "fbl": ">=1.14.0 <2.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "9.1.2",
