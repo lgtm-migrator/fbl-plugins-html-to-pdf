@@ -1,6 +1,6 @@
 {
   "name": "@fbl-plugins/html-to-pdf",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "fbl plugin to generate PDF documents based on HTML files",
   "main": "dist/index.js",
   "scripts": {
