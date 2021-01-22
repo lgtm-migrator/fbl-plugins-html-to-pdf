@@ -1,6 +1,4 @@
 import { suite, test } from 'mocha-typescript';
-import { Container } from 'typedi';
-import { PDFRenderProcessor } from '../../../src/processors';
 import { promisify } from 'util';
 import { readFile } from 'fs';
 import { TempPathsRegistry, ContextUtil, ActionSnapshot } from 'fbl';
@@ -16,10 +14,7 @@ chai.use(chaiAsPromised);
 @suite()
 class PDFRenderActionHandlerTestSuite {
     async after(): Promise<void> {
-        const tempPathRegistry = Container.get(TempPathsRegistry);
-        await tempPathRegistry.cleanup();
-
-        Container.reset();
+        await TempPathsRegistry.instance.cleanup();
     }
 
     @test()
@@ -137,8 +132,7 @@ class PDFRenderActionHandlerTestSuite {
 
     @test()
     async generatePdfFile() {
-        const tempPathRegistry = Container.get(TempPathsRegistry);
-        const pdfPath = await tempPathRegistry.createTempFile();
+        const pdfPath = await TempPathsRegistry.instance.createTempFile();
 
         const context = ContextUtil.generateEmptyContext();
         const snapshot = new ActionSnapshot('index.yml', 'id', {}, process.cwd(), 0, {});
@@ -172,8 +166,7 @@ class PDFRenderActionHandlerTestSuite {
 
     @test()
     async generatePDFWithTimeout() {
-        const tempPathRegistry = Container.get(TempPathsRegistry);
-        const pdfPath = await tempPathRegistry.createTempFile();
+        const pdfPath = await TempPathsRegistry.instance.createTempFile();
 
         const context = ContextUtil.generateEmptyContext();
         const snapshot = new ActionSnapshot('index.yml', 'id', {}, process.cwd(), 0, {});
@@ -204,8 +197,7 @@ class PDFRenderActionHandlerTestSuite {
 
     @test()
     async generatePDFWithReadyFunctionSetting() {
-        const tempPathRegistry = Container.get(TempPathsRegistry);
-        const pdfPath = await tempPathRegistry.createTempFile();
+        const pdfPath = await TempPathsRegistry.instance.createTempFile();
 
         const context = ContextUtil.generateEmptyContext();
         const snapshot = new ActionSnapshot('index.yml', 'id', {}, process.cwd(), 0, {});
